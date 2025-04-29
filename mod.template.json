@@ -1,0 +1,13 @@
+{
+  "_QPVersion": "0.1.1",
+  "id": "${mod_id}",
+  "name": "HitsoundTweaqs",
+  "version": "${version}",
+  "author": "GalaxyMaster2 (ported by NSGolova using Gemini 2.5)",
+  "description": "Adds a slider to change default cubes size",
+  "packageId": "com.beatgames.beatsaber",
+  "packageVersion": "1.40.4_5283",
+  "coverImage": "cover.png",
+  "modFiles": [],
+  "libraryFiles": []
+}

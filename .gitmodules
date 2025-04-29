@@ -1,0 +1,3 @@
+[submodule "HitsoundTweaks"]
+	path = HitsoundTweaks
+	url = git@github.com:GalaxyMaster2/HitsoundTweaks.git
