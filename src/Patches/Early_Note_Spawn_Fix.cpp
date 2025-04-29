@@ -213,7 +213,7 @@ namespace HitsoundTweaqs::Patches::Early_Note_Spawn_Fix
         auto activeItems = self->_noteCutSoundEffectPoolContainer->get_activeItems();
         int maxSoundEffects = 64;
         if (activeItems->get_Count() <= maxSoundEffects) {
-            SQLogger.debug("HandleNoteWasSpawned Reimplementation Exit (Pool count ok)");
+            // SQLogger.debug("HandleNoteWasSpawned Reimplementation Exit (Pool count ok)");
             return;
         }
         NoteCutSoundEffect* oldestSoundEffect = nullptr;
@@ -227,7 +227,7 @@ namespace HitsoundTweaqs::Patches::Early_Note_Spawn_Fix
             }
         }
         if (oldestSoundEffect) {
-            SQLogger.debug("Pool limit reached, stopping oldest sound effect.");
+            // SQLogger.debug("Pool limit reached, stopping oldest sound effect.");
             oldestSoundEffect->StopPlayingAndFinish();
         } else {
             SQLogger.warning("Pool limit reached but failed to find oldest sound effect to stop.");
@@ -253,7 +253,7 @@ namespace HitsoundTweaqs::Patches::Early_Note_Spawn_Fix
         }
         if (audioTimeSyncController->state == AudioTimeSyncController::State::Playing && !initQueue.empty())
         {
-            SQLogger.debug("Processing %zu queued NoteControllers in LateUpdate", initQueue.size());
+            // SQLogger.debug("Processing %zu queued NoteControllers in LateUpdate", initQueue.size());
             auto queueCopy = initQueue;
             initQueue.clear();
             for (NoteController *item : queueCopy)

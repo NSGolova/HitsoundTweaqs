@@ -19,7 +19,7 @@ namespace HitsoundTweaqs::Patches::NoteCutSoundEffect_Misc
         bool ignoreSpeed = getModConfig().IgnoreSaberSpeed.GetValue();
         bool enableSpat = getModConfig().EnableSpatialization.GetValue();
 
-        SQLogger.debug("Misc Patch: Setting ignoreSaberSpeed to %d, spatialization to %d", ignoreSpeed, enableSpat);
+        // SQLogger.debug("Misc Patch: Setting ignoreSaberSpeed to %d, spatialization to %d", ignoreSpeed, enableSpat);
 
         // if true, always play hitsounds even if saber isn't moving
         ignoreSaberSpeed_ref = ignoreSpeed;

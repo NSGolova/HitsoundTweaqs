@@ -65,7 +65,7 @@ namespace HitsoundTweaqs::Patches::NoteCutSoundEffect_Random_Pitch
                     bool ignoreSaberSpeed,
                     bool ignoreBadCuts)
     {
-        SQLogger.debug("NoteCutSoundEffect::Init (Strict Reimplementation with Patches) Hook Enter");
+        // SQLogger.debug("NoteCutSoundEffect::Init (Strict Reimplementation with Patches) Hook Enter");
 
         // --- Apply Patch Logic (Simulating Prefixes) ---
         float currentPitch = 0.0f;
@@ -129,7 +129,7 @@ namespace HitsoundTweaqs::Patches::NoteCutSoundEffect_Random_Pitch
         UnityEngine::Transform *transform = self->get_transform();
         if (transform)
         {
-            SQLogger.debug("Applying Init Transpiler: Setting initial position to Zero");
+            // SQLogger.debug("Applying Init Transpiler: Setting initial position to Zero");
             transform->set_position(UnityEngine::Vector3::get_zero());
         }
         else
@@ -143,22 +143,22 @@ namespace HitsoundTweaqs::Patches::NoteCutSoundEffect_Random_Pitch
         // VERIFY: _aheadTime field exists
 
         // Postfix logic from Position Init Patch ...
-        SQLogger.debug("Applying Init Postfix: Checking conditions to set position");
+        // SQLogger.debug("Applying Init Postfix: Checking conditions to set position");
         bool staticPos = getModConfig().StaticSoundPos.GetValue();
         bool isSpat = self->_audioSource->get_spatialize(); // VERIFY: get_spatialize method/field
         if (!staticPos && isSpat && transform && saber)
         {
-            SQLogger.debug("Init Postfix: Not static, spatialized. Setting position to saber tip");
+            // SQLogger.debug("Init Postfix: Not static, spatialized. Setting position to saber tip");
             // VERIFY: saber->saberBladeTopPos exists
             transform->set_position(saber->saberBladeTopPos);
         }
         else
         {
-            SQLogger.debug("Init Postfix: Condition not met (static=%d, spatialize=%d), position remains Zero.", staticPos, isSpat);
+            // SQLogger.debug("Init Postfix: Condition not met (static=%d, spatialize=%d), position remains Zero.", staticPos, isSpat);
         }
         // --- End Apply Patch Postfix Logic ---
 
-        SQLogger.debug("NoteCutSoundEffect::Init Hook Exit");
+        // SQLogger.debug("NoteCutSoundEffect::Init Hook Exit");
 
         // DO NOT CALL ORIGINAL METHOD
     }

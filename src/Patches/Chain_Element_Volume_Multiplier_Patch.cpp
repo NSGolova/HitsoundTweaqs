@@ -19,7 +19,7 @@ namespace HitsoundTweaqs::Patches::Chain_Element_Volume_Multiplier
         if (noteController && noteController->noteData && noteController->noteData->gameplayType == NoteData::GameplayType::BurstSliderElement)
         {
             float multiplier = getModConfig().ChainElementVolumeMultiplier.GetValue();
-            SQLogger.debug("Applying Chain Element Volume Multiplier: %.2f to original %.2f", multiplier, volumeMultiplier_ref);
+            // SQLogger.debug("Applying Chain Element Volume Multiplier: %.2f to original %.2f", multiplier, volumeMultiplier_ref);
             volumeMultiplier_ref *= multiplier;
         }
     }

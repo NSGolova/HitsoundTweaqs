@@ -38,7 +38,7 @@
 #include "include/Patches/Chain_Element_Hitsound_Patch.hpp"
 #include "include/Patches/NoteCutSoundEffect_NoteWasCut_Patch.hpp"
 #include "include/Patches/NoteCutSoundEffect_LateUpdate_Patch.hpp"
-#include "include/Patches/AudioTimeSyncController_Update_Patch.hpp"
+#include "include/Patches/AudioTimeSyncController_Update_Postfix_Patch.hpp"
 // #include "include/Patches/AnotherPatch.hpp" // Example for future patches
 
 using namespace GlobalNamespace;
@@ -109,7 +109,7 @@ void InstallAllHooks()
     HitsoundTweaqs::Patches::Chain_Element_Hitsound::InstallHook();
     HitsoundTweaqs::Patches::NoteCutSoundEffect_NoteWasCut::InstallHook();
     HitsoundTweaqs::Patches::NoteCutSoundEffect_LateUpdate::InstallHook();
-    HitsoundTweaqs::Patches::AudioTimeSyncController_Update::InstallHook();
+    HitsoundTweaqs::Patches::AudioTimeSyncController_Update_Postfix::InstallHook();
     SQLogger.info("All hooks installed.");
 }
 
@@ -137,29 +137,30 @@ MOD_EXPORT "C" void late_load()
 
     // Resolve the actual native function target: SetConfiguration
     // Signature is static bool SetConfiguration(AudioConfiguration config)
-    // static auto set_config_icall = il2cpp_utils::resolve_icall<bool, UnityEngine::AudioConfiguration>("UnityEngine.AudioSettings::SetConfiguration");
-    // if (set_config_icall)
-    // {
-    //     bool success = set_config_icall(currentConfig);
-    //     if (success)
-    //     {
-    //         auto newConfig = UnityEngine::AudioSettings::GetConfiguration();
-    //         SQLogger.info("AudioSettings SetConfiguration successful.");
-    //         SQLogger.info("New virtual voices: %d, real voices: %d", newConfig.numVirtualVoices, newConfig.numRealVoices);
-    //         if (newConfig.numVirtualVoices != NumVirtualVoices || newConfig.numRealVoices != NumRealVoices)
-    //         {
-    //             SQLogger.warn("Failed to set audio voices to the desired values, check logs above.");
-    //         }
-    //     }
-    //     else
-    //     {
-    //         SQLogger.error("UnityEngine.AudioSettings::SetConfiguration call returned false!");
-    //     }
-    // }
-    // else
-    // {
-    //     SQLogger.error("Failed to resolve UnityEngine.AudioSettings::SetConfiguration icall!");
-    // }
+    static auto set_config_icall = il2cpp_utils::resolve_icall<bool, ByRef<UnityEngine::AudioConfiguration>>("UnityEngine.AudioSettings::SetConfiguration_Injected");
+    if (set_config_icall)
+    {
+        ByRef<UnityEngine::AudioConfiguration> currentConfigRef = ByRef<UnityEngine::AudioConfiguration>(&currentConfig);
+        bool success = set_config_icall(currentConfigRef);
+        if (success)
+        {
+            auto newConfig = UnityEngine::AudioSettings::GetConfiguration();
+            SQLogger.info("AudioSettings SetConfiguration successful.");
+            SQLogger.info("New virtual voices: {}, real voices: {}", newConfig.numVirtualVoices, newConfig.numRealVoices);
+            if (newConfig.numVirtualVoices != NumVirtualVoices || newConfig.numRealVoices != NumRealVoices)
+            {
+                SQLogger.warn("Failed to set audio voices to the desired values, check logs above.");
+            }
+        }
+        else
+        {
+            SQLogger.error("UnityEngine.AudioSettings::SetConfiguration call returned false!");
+        }
+    }
+    else
+    {
+        SQLogger.error("Failed to resolve UnityEngine.AudioSettings::SetConfiguration icall!");
+    }
 
     SQLogger.info("HitsoundTweaqs late_load complete.");
 }

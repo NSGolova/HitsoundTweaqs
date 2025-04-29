@@ -25,7 +25,7 @@ namespace HitsoundTweaqs::Patches::Chain_Element_Hitsound
         if (noteData && noteData->gameplayType == NoteData::GameplayType::BurstSliderElement && noteData->colorType != ColorType::None)
         {
             bool enableChainHitsounds = getModConfig().EnableChainElementHitsounds.GetValue();
-            SQLogger.debug("IsSupportedNote Postfix: Note is BurstSliderElement, returning %d based on config", enableChainHitsounds);
+            // SQLogger.debug("IsSupportedNote Postfix: Note is BurstSliderElement, returning %d based on config", enableChainHitsounds);
             return enableChainHitsounds; // Override result based on config
         }
 
