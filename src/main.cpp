@@ -57,21 +57,28 @@ MOD_EXPORT void setup(CModInfo *info) noexcept
 }
 
 // Helper functions for BSML UI Creation (can be moved to a separate file later)
-BSML::ToggleSetting *AddConfigToggle(UnityEngine::UI::VerticalLayoutGroup *vertical, ConfigUtils::ConfigValue<bool> &configValue, std::string_view text)
+BSML::ToggleSetting *AddConfigToggle(UnityEngine::UI::VerticalLayoutGroup *vertical, ConfigUtils::ConfigValue<bool> &configValue, std::string_view text, std::string_view hoverHint)
 {
-    return BSML::Lite::CreateToggle(vertical->get_transform(), text,
-                                    configValue.GetValue(), [&configValue](bool newValue)
-                                    { configValue.SetValue(newValue); });
+    auto toggle = BSML::Lite::CreateToggle(vertical->get_transform(), text,
+                                           configValue.GetValue(), [&configValue](bool newValue)
+                                           { configValue.SetValue(newValue); });
+    if (!hoverHint.empty())
+    {
+        BSML::Lite::AddHoverHint(toggle->get_gameObject(), hoverHint);
+    }
+    return toggle;
 }
 
-BSML::IncrementSetting *AddConfigIncrementFloat(UnityEngine::UI::VerticalLayoutGroup *vertical, ConfigUtils::ConfigValue<float> &configValue, std::string_view text, int decimals, float increment, float minValue, float maxValue)
+BSML::IncrementSetting *AddConfigIncrementFloat(UnityEngine::UI::VerticalLayoutGroup *vertical, ConfigUtils::ConfigValue<float> &configValue, std::string_view text, int decimals, float increment, float minValue, float maxValue, std::string_view hoverHint)
 {
     auto incSetting = BSML::Lite::CreateIncrementSetting(vertical->get_transform(), text,
                                                          decimals, increment, configValue.GetValue(), minValue, maxValue,
                                                          [&configValue](float newValue)
-                                                         {
-                                                             configValue.SetValue(newValue);
-                                                         });
+                                                         { configValue.SetValue(newValue); });
+    if (!hoverHint.empty())
+    {
+        BSML::Lite::AddHoverHint(incSetting->get_gameObject(), hoverHint);
+    }
     return incSetting;
 }
 
@@ -84,20 +91,26 @@ void DidActivate(UnityEngine::GameObject *gameObject, bool firstActivation)
     auto parent = gameObject->get_transform();
     auto vertical = BSML::Lite::CreateVerticalLayoutGroup(parent);
     vertical->set_spacing(0.4f);
-    vertical->set_padding(UnityEngine::RectOffset::New_ctor(2, 2, 2, 2)); // Example padding
+    vertical->set_padding(UnityEngine::RectOffset::New_ctor(2, 2, 2, 2));
 
-    // Add Config Elements
+    // Add Config Elements with correct hover hints from BSML
     // Booleans (Toggles)
-    AddConfigToggle(vertical, getModConfig().IgnoreSaberSpeed, "Ignore Saber Speed");
-    AddConfigToggle(vertical, getModConfig().StaticSoundPos, "Static Sound Position");
-    AddConfigToggle(vertical, getModConfig().EnableSpatialization, "Enable Spatialization");
-    AddConfigToggle(vertical, getModConfig().EnableChainElementHitsounds, "Enable Chain Hitsounds");
+    AddConfigToggle(vertical, getModConfig().IgnoreSaberSpeed, "Ignore Saber Speed",
+                    "When enabled, hitsounds always play even when the sabers are not moving.");
+    AddConfigToggle(vertical, getModConfig().StaticSoundPos, "Static Sound Position",
+                    "When enabled, hitsounds are located at your feet, instead of your saber tips.");
+    AddConfigToggle(vertical, getModConfig().EnableSpatialization, "Enable Spatialization",
+                    "When disabled, hitsounds will be played as-is without further processing, instead of being spatialized.");
+    AddConfigToggle(vertical, getModConfig().EnableChainElementHitsounds, "Enable Chain Hitsounds",
+                    "When enabled, hitsounds will be played for chain elements.");
 
-    // Floats (Sliders or Increment Settings)
-    // Using Increment Settings for precise values
-    AddConfigIncrementFloat(vertical, getModConfig().RandomPitchMin, "Min Random Pitch", 2, 0.01f, 0.1f, 2.0f);
-    AddConfigIncrementFloat(vertical, getModConfig().RandomPitchMax, "Max Random Pitch", 2, 0.01f, 0.1f, 2.0f);
-    AddConfigIncrementFloat(vertical, getModConfig().ChainElementVolumeMultiplier, "Chain Volume Multiplier", 2, 0.01f, 0.0f, 1.0f);
+    // Floats (Increment Settings - matching PC ranges/increment)
+    AddConfigIncrementFloat(vertical, getModConfig().RandomPitchMin, "Min Random Pitch", 2, 0.05f, 0.0f, 2.0f,
+                            "The minimum value for randomized hitsound pitch. If minimum and maximum are equal, hitsound pitch is not randomized.");
+    AddConfigIncrementFloat(vertical, getModConfig().RandomPitchMax, "Max Random Pitch", 2, 0.05f, 0.0f, 2.0f,
+                            "The maximum value for randomized hitsound pitch. If minimum and maximum are equal, hitsound pitch is not randomized.");
+    AddConfigIncrementFloat(vertical, getModConfig().ChainElementVolumeMultiplier, "Chain Volume Multiplier", 2, 0.05f, 0.0f, 2.0f,
+                            "Volume multiplier used for chain element hitsounds.");
 }
 
 // --- Hooks Installation ---
