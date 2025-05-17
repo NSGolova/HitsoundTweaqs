@@ -4,12 +4,12 @@
 bin
 obj
 build
-HitsoundTweaqs.qmod
+*.qmod
 logcat.log
 tombstone*
 extern/
 qpm-rust
-qpm.shared.json
+mod.json
 qpm.exe
 ndkpath.txt
 extern.cmake
