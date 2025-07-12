@@ -4,7 +4,7 @@
   "id": "HitsoundTweaqs",
   "modloader": "Scotland2",
   "author": "GalaxyMaster2 (ported by NSGolova using Gemini 2.5)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packageId": "com.beatgames.beatsaber",
   "packageVersion": "1.40.7_7060",
   "description": "Adds a slider to change default cubes size",
