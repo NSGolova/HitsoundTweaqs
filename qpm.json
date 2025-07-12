@@ -1,11 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
+  "version": "0.4.0",
   "sharedDir": "shared",
   "dependenciesDir": "extern",
   "info": {
     "name": "HitsoundTweaqs",
     "id": "HitsoundTweaqs",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "url": null,
     "additionalData": {
       "overrideSoName": "libhitsoundtweaqs.so"
@@ -62,7 +63,7 @@
     },
     {
       "id": "bs-cordl",
-      "versionRange": "4006.*",
+      "versionRange": "4007.*",
       "additionalData": {}
     },
     {
@@ -82,14 +83,13 @@
     },
     {
       "id": "bsml",
-      "versionRange": "^0.4.53",
+      "versionRange": "^0.4.54",
       "additionalData": {}
     },
     {
       "id": "conditional-dependencies",
-      "versionRange": "*",
+      "versionRange": "^0.3.0",
       "additionalData": {}
     }
-  ],
-  "additionalData": {}
+  ]
 }
