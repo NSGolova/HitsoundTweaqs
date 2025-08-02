@@ -6,7 +6,7 @@
   "info": {
     "name": "HitsoundTweaqs",
     "id": "HitsoundTweaqs",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "url": null,
     "additionalData": {
       "overrideSoName": "libhitsoundtweaqs.so"
@@ -63,7 +63,7 @@
     },
     {
       "id": "bs-cordl",
-      "versionRange": "4007.*",
+      "versionRange": "4008.*",
       "additionalData": {}
     },
     {
@@ -83,7 +83,7 @@
     },
     {
       "id": "bsml",
-      "versionRange": "^0.4.54",
+      "versionRange": "^0.4.55",
       "additionalData": {}
     },
     {

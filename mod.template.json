@@ -4,9 +4,9 @@
   "name": "HitsoundTweaqs",
   "version": "${version}",
   "author": "GalaxyMaster2 (ported by NSGolova using Gemini 2.5)",
-  "description": "Adds a slider to change default cubes size",
+  "description": "Mod that adds more configurability to hitsounds, and fixes several base game bugs",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.40.7_7060",
+  "packageVersion": "1.40.8_7379",
   "coverImage": "cover.png",
   "modFiles": [],
   "lateModFiles": [

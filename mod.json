@@ -4,10 +4,10 @@
   "id": "HitsoundTweaqs",
   "modloader": "Scotland2",
   "author": "GalaxyMaster2 (ported by NSGolova using Gemini 2.5)",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.40.7_7060",
-  "description": "Adds a slider to change default cubes size",
+  "packageVersion": "1.40.8_7379",
+  "description": "Mod that adds more configurability to hitsounds, and fixes several base game bugs",
   "coverImage": "cover.png",
   "dependencies": [
     {
@@ -26,9 +26,9 @@
       "downloadIfMissing": "https://github.com/Fernthedev/paperlog/releases/download/v4.6.4/paper2_scotland2.qmod"
     },
     {
-      "version": "^0.4.53",
+      "version": "^0.4.55",
       "id": "bsml",
-      "downloadIfMissing": "https://github.com/bsq-ports/Quest-BSML/releases/download/v0.4.53/BSML.qmod"
+      "downloadIfMissing": "https://github.com/bsq-ports/Quest-BSML/releases/download/v0.4.55/BSML.qmod"
     }
   ],
   "modFiles": [],
